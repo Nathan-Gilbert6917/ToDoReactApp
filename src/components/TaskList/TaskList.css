@@ -1,0 +1,14 @@
+.taskList {
+  height: 75vh;
+  margin-bottom: 10px;
+}
+
+.taskList .container {
+  border: 1px solid rgb(184, 184, 184);
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(184, 184, 184);
+  margin: auto;
+  padding: 3%;
+  max-height: 100%;
+  overflow-y: scroll;
+}
