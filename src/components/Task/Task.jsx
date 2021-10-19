@@ -1,14 +1,17 @@
 import React from 'react';
+import TaskModal from '../TaskModal/TaskModal.jsx';
+
 import './Task.css';
 
 class Task extends React.Component {
 
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      checked: false
+      checked: this.props.done,
+      open: false,
     }
   }
 
@@ -18,16 +21,27 @@ class Task extends React.Component {
     });
   }
 
+  taskClicked() {
+    this.setState({
+      open: !this.state.open
+    })
+  }
+
+  toggleShowTaskModal() {
+    this.setState({open: !this.state.open});
+  }
+
   render() { 
     return (
-      <div className="task">
-        <input className="checkbox" type="checkbox" id={this.props.id} onChange={this.checkboxClicked.bind(this)}></input>
+      <div className="task" onClick={this.taskClicked.bind(this)}>
+        <input className="checkbox" type="checkbox" checked={this.state.checked} id={this.props.id} onClick={(e) => e.stopPropagation()} onChange={this.checkboxClicked.bind(this)}></input>
         <div className="desc-container">
           {this.state.checked
             ? <i><h4 className="done desc">{this.props.title}</h4></i>
             : <h4 className="desc">{this.props.title}</h4>
           }
         </div>
+        <TaskModal open={this.state.open} id={this.props.id} title={this.props.title} desc={this.props.desc} toggleShowTaskModalCallback={this.toggleShowTaskModal.bind(this)}/>
       </div>
     );
   }

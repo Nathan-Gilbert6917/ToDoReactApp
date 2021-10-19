@@ -1,5 +1,6 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { BsX } from "react-icons/bs";
+import _uniqueId from 'lodash/uniqueId';
 
 import './AddTaskModal.css';
 
@@ -19,11 +20,12 @@ export default class AddTaskModal extends Component {
   addTask(event) {
     event.preventDefault();
     const task = {
-      id: '1',
+      id: '',
       title: this.state.title,
       desc: this.state.desc,
       done: false,
     }
+    task.id = _uniqueId('0x');
     this.props.addTaskCallback(task);
     this.updateParent();
   }
@@ -44,8 +46,8 @@ export default class AddTaskModal extends Component {
 
   render() {
     return (
-      <div className={this.props.open ? 'modal' : 'modal modal-hidden'}>
-        <div className="modal-content">
+      <div className={this.props.open ? 'modal' : 'modal modal-hidden'} onClick={this.updateParent.bind(this)}>
+        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
           <div className="modal-header">
             <h2 className="modal-title">{this.props.title}</h2>
             <BsX className="close-modal" onClick={this.updateParent.bind(this)}/>

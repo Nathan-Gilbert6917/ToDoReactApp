@@ -1,6 +1,8 @@
 import React from 'react';
-import './TaskList.css';
 import Task from '../Task/Task.jsx';
+
+import './TaskList.css';
+
 class TaskList extends React.Component {
 
   render() { 

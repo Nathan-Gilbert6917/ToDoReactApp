@@ -7,13 +7,15 @@ import SettingsModal from '../SettingsModal/SettingsModal.jsx';
 import AddTaskModal from '../AddTaskModal/AddTaskModal.jsx';
 import { BsPlus, BsGearFill } from "react-icons/bs";
 
+
 class App extends React.Component {
 
 // {
 //  id : '1',
 //  title: 'Todo1',
 //  desc: 'Hello',
-//  done: false
+//  done: false,
+//  priority: 1,
 // },
 
   constructor() {
@@ -24,6 +26,53 @@ class App extends React.Component {
       addTaskModal: false,
       settingsModal: false
     };
+  }
+
+  componentDidMount() {
+    this.getTasksState();
+  }
+
+  splitObjects(objectsString) {
+    if (objectsString) {
+      let objects = [];
+      let bracketCounter = 0;
+      let leftBracketIndex = 0;
+      let rightBracketIndex = 0;
+
+      for (let key in objectsString) {
+        if (objectsString[key] === '{' || objectsString[key] === '}') {
+          bracketCounter++;
+          if (bracketCounter === 1) {
+            leftBracketIndex = key;
+          } else if (bracketCounter === 2) {
+            rightBracketIndex = key;
+            let object = JSON.parse(objectsString.substring(leftBracketIndex, rightBracketIndex) + '}');
+            objects.push(object);
+            bracketCounter = 0;
+            leftBracketIndex = 0; 
+            rightBracketIndex = 0;
+          }
+        }
+      }
+      return objects;
+    }
+  }
+
+  getTasksState() {
+    const tasksState = localStorage.getItem('Tasks');
+    if (tasksState) {
+      this.setState({
+        tasks: this.splitObjects(tasksState)
+      });
+    }
+  }
+
+  setTasksState() {
+    let tasks = [];
+    this.state.tasks.forEach(element => {
+      tasks.push(JSON.stringify(element));
+    });
+    localStorage.setItem('Tasks', tasks);
   }
 
   addTaskClick() {
@@ -52,8 +101,8 @@ class App extends React.Component {
     this.setState({
       tasks: newTasksList
     });
+    this.setTasksState();
   }
-   
 
   render() {
     return (
