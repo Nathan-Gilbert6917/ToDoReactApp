@@ -17,6 +17,13 @@ export default class AddTaskModal extends Component {
     }
   }
 
+  guidGenerator() {
+    const S4 = function() {
+       return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    };
+    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+}
+
   addTask(event) {
     event.preventDefault();
     const task = {
@@ -25,7 +32,7 @@ export default class AddTaskModal extends Component {
       desc: this.state.desc,
       done: false,
     }
-    task.id = _uniqueId('0x');
+    task.id = _uniqueId(this.guidGenerator());
     this.props.addTaskCallback(task);
     this.updateParent();
   }

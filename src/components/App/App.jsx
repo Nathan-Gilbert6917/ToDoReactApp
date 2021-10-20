@@ -67,10 +67,10 @@ class App extends React.Component {
     }
   }
 
-  setTasksState() {
+  setTasksState(taskState) {
     let tasks = [];
-    this.state.tasks.forEach(element => {
-      tasks.push(JSON.stringify(element));
+    taskState.forEach(task => {
+      tasks.push(JSON.stringify(task));
     });
     localStorage.setItem('Tasks', tasks);
   }
@@ -98,10 +98,14 @@ class App extends React.Component {
   addNewTask(newTask) {
     const newTasksList = this.state.tasks;
     newTasksList.push(newTask);
-    this.setState({
-      tasks: newTasksList
-    });
-    this.setTasksState();
+    this.setState({ tasks: newTasksList });
+    this.setTasksState(newTasksList);
+  }
+
+  removeFromTasks(taskId) {
+    let updatedTasks = this.state.tasks.filter((task) => {return task.id !== taskId})
+    this.setState({ tasks: updatedTasks });
+    this.setTasksState(updatedTasks);
   }
 
   render() {
@@ -122,9 +126,8 @@ class App extends React.Component {
                 <BsGearFill className="settings-button" onClick={this.settingsClick.bind(this)} />
             </div>
           </div>
-          <TaskList className="list" tasks={this.state.tasks} />
+          <TaskList className="list" tasks={this.state.tasks} removeFromTasks={this.removeFromTasks.bind(this)}/>
         </div>
-        
       </div>
     );
   }

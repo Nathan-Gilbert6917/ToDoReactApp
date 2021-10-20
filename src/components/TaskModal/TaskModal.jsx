@@ -20,6 +20,11 @@ export default class TaskModal extends Component {
     this.props.toggleShowTaskModalCallback();
   }
 
+  remove() {
+    this.props.removeFromTasks();
+    this.updateParent();
+  }
+
   render() {
     return (
       <div className={this.props.open ? 'modal' : 'modal modal-hidden'}>
@@ -32,7 +37,7 @@ export default class TaskModal extends Component {
             {this.props.desc}
           </div>
           <div className="modal-footer">
-            <button className="button-remove">
+            <button className="button-remove" onClick={this.remove.bind(this)}>
               Remove
             </button>
           </div>
