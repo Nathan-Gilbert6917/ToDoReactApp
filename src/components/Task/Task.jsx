@@ -35,6 +35,10 @@ class Task extends React.Component {
     this.props.removeFromTasks(this.props.id);
   }
 
+  updateTask(updatedTaskState) {
+    this.props.updateTask(updatedTaskState);
+  }
+
   render() { 
     return (
       <div className="task" onClick={this.taskClicked.bind(this)}>
@@ -48,10 +52,12 @@ class Task extends React.Component {
         <TaskModal 
           open={this.state.open} 
           id={this.props.id} 
-          title={this.props.title} 
-          desc={this.props.desc} 
+          title={this.props.title}
+          desc={this.props.desc}
+          done={this.props.done}
           toggleShowTaskModalCallback={this.toggleShowTaskModal.bind(this)}
           removeFromTasks={this.removeFromTasks.bind(this)}
+          updateTask={this.updateTask.bind(this)}
         />
       </div>
     );

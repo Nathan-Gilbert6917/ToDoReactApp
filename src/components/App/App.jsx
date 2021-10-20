@@ -108,6 +108,17 @@ class App extends React.Component {
     this.setTasksState(updatedTasks);
   }
 
+  async updateTask(updatedTaskState) {
+    const tasks = this.state.tasks.map((task) => {
+      if (task.id === updatedTaskState.id) {
+        return updatedTaskState;
+      }
+      return task;
+    });
+    await this.setState({ tasks: tasks });
+    this.setTasksState(this.state.tasks);
+  }
+
   render() {
     return (
       <div className="App">
@@ -126,7 +137,12 @@ class App extends React.Component {
                 <BsGearFill className="settings-button" onClick={this.settingsClick.bind(this)} />
             </div>
           </div>
-          <TaskList className="list" tasks={this.state.tasks} removeFromTasks={this.removeFromTasks.bind(this)}/>
+          <TaskList 
+            className="list"
+            tasks={this.state.tasks} 
+            removeFromTasks={this.removeFromTasks.bind(this)}  
+            updateTask={this.updateTask.bind(this)}
+          />
         </div>
       </div>
     );
