@@ -69,6 +69,7 @@
 
 /* Buttons */
 
+.button-deny-remove,
 .button-remove {
   width: 80px;
   height: 50px;
@@ -80,4 +81,19 @@
   font-size: medium;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.button-deny-remove {
+  border: 3px solid rgb(6, 155, 241);
+  box-shadow: 0 0 6px rgba(0, 68, 255, 0.5);
+}
+
+.remove-confirm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.remove-confirm h4 {
+  line-height: 0;
 }

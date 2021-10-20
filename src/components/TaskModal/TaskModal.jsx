@@ -16,12 +16,18 @@ export default class TaskModal extends Component {
         title: this.props.title,
         desc: this.props.desc,
         done: this.props.done
-      }
+      },
+      confirmOpen: false
     }
   }
 
   updateParent(){
     this.props.toggleShowTaskModalCallback();
+    this.setState({confirmOpen: false});
+  }
+
+  removeClicked() {
+    this.setState({confirmOpen: !this.state.confirmOpen});
   }
 
   remove() {
@@ -56,9 +62,16 @@ export default class TaskModal extends Component {
             <h4>Description: <textarea value={this.state.task.desc} className="description" onChange={(e) => this.setDesc(e.target.value)} name="desc" placeholder="Enter your task's Description"></textarea></h4>
           </div>
           <div className="modal-footer">
-            <button className="button-remove" onClick={this.remove.bind(this)}>
-              Remove
-            </button>
+            {this.state.confirmOpen
+              ? <div className="remove-confirm">
+                  <h4>Are you sure you want to remove?</h4> 
+                  <button className="button-remove" onClick={this.remove.bind(this)}> Yes </button>
+                  <button className="button-deny-remove" onClick={this.removeClicked.bind(this)}> No </button>
+                </div>
+              : <button className="button-remove" onClick={this.removeClicked.bind(this)}> Remove </button>
+            }
+            
+            
           </div>
         </div>
       </div>
