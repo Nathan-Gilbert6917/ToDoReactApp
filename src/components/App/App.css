@@ -10,7 +10,6 @@
   scrollbar-color: rgb(255, 255, 255) rgb(180, 180, 180);
 }
 
-/* Targtes on Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
   width: 12px;
   

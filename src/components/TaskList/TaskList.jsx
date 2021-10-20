@@ -25,6 +25,7 @@ class TaskList extends React.Component {
                     desc={task.desc} 
                     title={task.title} 
                     done={task.done} 
+                    priority={task.priority}
                     removeFromTasks={this.removeFromTasks.bind(this)} 
                     updateTask={this.updateTask.bind(this)}
                   />

@@ -55,6 +55,7 @@ class Task extends React.Component {
           title={this.props.title}
           desc={this.props.desc}
           done={this.props.done}
+          priority={this.props.priority}
           toggleShowTaskModalCallback={this.toggleShowTaskModal.bind(this)}
           removeFromTasks={this.removeFromTasks.bind(this)}
           updateTask={this.updateTask.bind(this)}
