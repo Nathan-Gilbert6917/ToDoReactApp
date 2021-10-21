@@ -60,7 +60,7 @@ export default class AddTaskModal extends Component {
 
   render() {
     return (
-      <div className={this.props.open ? 'modal' : 'modal modal-hidden'} onClick={this.updateParent.bind(this)}>
+      <div className={this.props.open ? 'add-modal' : 'add-modal modal-hidden'} onClick={this.updateParent.bind(this)}>
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
           <div className="modal-header">
             <h2 className="modal-title">{this.props.title}</h2>

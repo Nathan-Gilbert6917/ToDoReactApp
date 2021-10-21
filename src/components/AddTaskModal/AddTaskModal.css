@@ -1,4 +1,4 @@
-.modal {
+.add-modal {
   position: absolute;
   top: 0;
   left: 0;
@@ -13,7 +13,7 @@
 
 .modal-content {
   position: fixed;
-  background-color: #fff;
+  background-color: var(--night-bg);
   border-radius: 8px;
   width: 30%;
   top: 40%;
@@ -62,10 +62,10 @@
 }
 
 @media (max-width: 768px) {
-  .modal-content {
+  .add-modal .modal-content {
     width: 80%;
   }
-}
+} 
 
 /* Buttons */
 .button-add {
@@ -78,6 +78,7 @@
   background-color: rgba(0, 0, 0, 0);
   font-size: medium;
   border-radius: 10px;
+  color: var(--night-text);
 }
 
 .form-align {

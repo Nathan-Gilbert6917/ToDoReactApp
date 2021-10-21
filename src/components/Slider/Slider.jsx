@@ -7,12 +7,16 @@ export default class Slider extends Component {
     this.props.toggleSwitchClickedCallback(event.target.checked);
   }
 
+  get label(){
+    return this.props.on ? 'Dark Mode' : 'Light Mode';
+  }
+
   render() {
     return (
       <div className="switch-container">
-        <span>{this.props.title}</span>
+        <span>{this.label}</span>
         <label className="switch">
-          <input type="checkbox" onChange={this.updateParent.bind(this)}/>
+          <input type="checkbox" checked={this.props.on} onChange={this.updateParent.bind(this)}/>
           <span className="slider round"></span>
         </label>
       </div>

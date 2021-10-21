@@ -15,10 +15,18 @@ class Task extends React.Component {
     }
   }
 
-  checkboxClicked() {
-    this.setState({
+  async checkboxClicked() {
+    await this.setState({
       checked: !this.state.checked
     });
+    let task = {
+      id: this.props.id,
+      title: this.props.title,
+      desc: this.props.desc,
+      done: this.state.checked,
+      priority: this.props.priority
+    }
+    this.updateTask(task);
   }
 
   taskClicked() {

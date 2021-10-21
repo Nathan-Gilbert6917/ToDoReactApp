@@ -59,7 +59,7 @@ export default class TaskModal extends Component {
 
   render() {
     return (
-      <div className={this.props.open ? 'modal' : 'modal modal-hidden'}>
+      <div className={this.props.open ? 'task-modal' : 'task-modal modal-hidden'}>
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
           <div className="modal-header">
             <h2 className="modal-title">Edit Task</h2>

@@ -8,11 +8,33 @@ export default class SettingsModal extends Component {
   constructor(props) {
     super(props);
 
+    let nightSwitch;
+    if (this.nightModeState !== 'null' && this.nightModeState === 'true') {
+      nightSwitch = true; 
+    } else {
+      nightSwitch = false;
+    }
+
     this.state = {
       open: this.props.open,
-      switchTitle: 'Light Mode',
-      switchOn: false
+      switchOn: nightSwitch
     }
+    this.changeTheme(this.state.switchOn);
+  }
+
+  get nightModeState() { 
+    return localStorage.getItem('nightMode');
+  }
+
+  set nightModeState(state) {
+    localStorage.setItem('nightMode', state);
+  }
+
+  changeTheme(state){
+    state ? document.documentElement.style.setProperty('--night-bg', '#242424') : document.documentElement.style.setProperty('--night-bg', '#fff');
+    state ? document.documentElement.style.setProperty('--night-text', '#fff') : document.documentElement.style.setProperty('--night-text', '#000');
+    state ? document.documentElement.style.setProperty('--night-shadow', '') : document.documentElement.style.setProperty('--night-shadow', '0 0 7px #ddd');
+    this.nightModeState = state;
   }
 
   updateParent(){
@@ -20,16 +42,15 @@ export default class SettingsModal extends Component {
   }
 
   toggleSwitchClicked(state) {
-    const lightMode = state ? 'Dark Mode' : 'Light Mode';
     this.setState({
-      switchTitle: lightMode,
       switchOn: state
     });
+    this.changeTheme(state);
   }
 
   render() {
     return (
-      <div className={this.props.open ? 'modal' : 'modal modal-hidden'} onClick={this.updateParent.bind(this)}>
+      <div className={this.props.open ? 'setting-modal' : 'setting-modal modal-hidden'} onClick={this.updateParent.bind(this)}>
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
           <div className="modal-header">
             <h2 className="modal-title">{this.props.title}</h2>
@@ -37,7 +58,7 @@ export default class SettingsModal extends Component {
           </div>
           <div className="modal-body">
             <div className="lightModeSwitch">
-              <Slider title={this.state.switchTitle} toggleSwitchClickedCallback={this.toggleSwitchClicked.bind(this)}/>
+              <Slider on={this.state.switchOn} toggleSwitchClickedCallback={this.toggleSwitchClicked.bind(this)}/>
             </div>
           </div>
         </div>
