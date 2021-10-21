@@ -71,14 +71,17 @@ export default class TaskModal extends Component {
             <h4>Description: <textarea value={this.state.task.desc} className="description" onChange={(e) => this.setDesc(e.target.value)} name="desc" placeholder="Edit your task's Description"></textarea></h4>
           </div> 
           <div className="modal-footer">
-            <button className="button-done" onClick={this.updateParent.bind(this)}> Done </button>
+            
             {this.state.confirmOpen
               ? <div className="remove-confirm">
                   <h4>Are you sure you want to remove?</h4> 
                   <button className="button-remove" onClick={this.remove.bind(this)}> Yes </button>
                   <button className="button-deny-remove" onClick={this.removeClicked.bind(this)}> No </button>
                 </div>
-              : <button className="button-remove" onClick={this.removeClicked.bind(this)}> Remove </button>
+              : <div>
+                  <button className="button-done" onClick={this.updateParent.bind(this)}> Done </button>
+                  <button className="button-remove" onClick={this.removeClicked.bind(this)}> Remove </button>
+                </div>
             }
           </div>
         </div>
