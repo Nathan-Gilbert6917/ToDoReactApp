@@ -68,7 +68,7 @@
 }
 
 /* Buttons */
-
+.button-done,
 .button-deny-remove,
 .button-remove {
   width: 80px;
@@ -83,7 +83,7 @@
   cursor: pointer;
   color: var(--night-text);
 }
-
+.button-done,
 .button-deny-remove {
   border: 3px solid rgb(6, 155, 241);
   box-shadow: 0 0 6px rgba(0, 68, 255, 0.5);

@@ -65,23 +65,22 @@ export default class TaskModal extends Component {
             <h2 className="modal-title">Edit Task</h2>
             <BsX className="close-modal" onClick={this.updateParent.bind(this)}/>
           </div>
-          <form onSubmit={this.updateParent.bind(this)}>
-            <div className="modal-body">
-              <h4>Title: <input value={this.state.task.title} className="title" name="title" required placeholder="Edit your task's name" onChange={(e) => this.setTitle(e.target.value)}/></h4>
-              <h4>Priority: <input value={this.state.task.priority} className="priority" onChange={(e) => this.setPriority(e.target.value)} name="priority" placeholder="0"></input></h4>
-              <h4>Description: <textarea value={this.state.task.desc} className="description" onChange={(e) => this.setDesc(e.target.value)} name="desc" placeholder="Edit your task's Description"></textarea></h4>
-            </div> 
-            <div className="modal-footer">
-              {this.state.confirmOpen
-                ? <div className="remove-confirm">
-                    <h4>Are you sure you want to remove?</h4> 
-                    <button className="button-remove" onClick={this.remove.bind(this)}> Yes </button>
-                    <button className="button-deny-remove" onClick={this.removeClicked.bind(this)}> No </button>
-                  </div>
-                : <button className="button-remove" onClick={this.removeClicked.bind(this)}> Remove </button>
-              }
-            </div>
-          </form>
+          <div className="modal-body">
+            <h4>Title: <input value={this.state.task.title} className="title" name="title" required placeholder="Edit your task's name" onChange={(e) => this.setTitle(e.target.value)}/></h4>
+            <h4>Priority: <input value={this.state.task.priority} className="priority" onChange={(e) => this.setPriority(e.target.value)} name="priority" placeholder="0"></input></h4>
+            <h4>Description: <textarea value={this.state.task.desc} className="description" onChange={(e) => this.setDesc(e.target.value)} name="desc" placeholder="Edit your task's Description"></textarea></h4>
+          </div> 
+          <div className="modal-footer">
+            <button className="button-done" onClick={this.updateParent.bind(this)}> Done </button>
+            {this.state.confirmOpen
+              ? <div className="remove-confirm">
+                  <h4>Are you sure you want to remove?</h4> 
+                  <button className="button-remove" onClick={this.remove.bind(this)}> Yes </button>
+                  <button className="button-deny-remove" onClick={this.removeClicked.bind(this)}> No </button>
+                </div>
+              : <button className="button-remove" onClick={this.removeClicked.bind(this)}> Remove </button>
+            }
+          </div>
         </div>
       </div>
     )

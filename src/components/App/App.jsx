@@ -119,6 +119,10 @@ class App extends React.Component {
     this.setTasksState(this.state.tasks);
   }
 
+  get sortedTask() {
+    return this.state.tasks.sort((t1, t2) => parseInt(t2.priority) - parseInt(t1.priority));
+  }
+
   render() {
     return (
       <div className="App">
@@ -139,7 +143,7 @@ class App extends React.Component {
           </div>
           <TaskList 
             className="list"
-            tasks={this.state.tasks} 
+            tasks={this.sortedTask} 
             removeFromTasks={this.removeFromTasks.bind(this)}  
             updateTask={this.updateTask.bind(this)}
           />
