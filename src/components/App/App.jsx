@@ -5,6 +5,7 @@ import TaskList from '../TaskList/TaskList.jsx';
 
 import SettingsModal from '../SettingsModal/SettingsModal.jsx';
 import AddTaskModal from '../AddTaskModal/AddTaskModal.jsx';
+import Popup from '../Popup/Popup.jsx';
 import { BsPlus, BsGearFill } from "react-icons/bs";
 
 
@@ -16,6 +17,13 @@ class App extends React.Component {
 //  desc: 'Hello',
 //  done: false,
 //  priority: 1,
+//  steps: [
+//    {
+//     id: '1',
+//     step: '',
+//     done: false,
+//    }
+//  ]
 // },
 
   constructor() {
@@ -24,7 +32,8 @@ class App extends React.Component {
     this.state = {
       tasks: [],
       addTaskModal: false,
-      settingsModal: false
+      settingsModal: false,
+      message: {text: '', type: '', hidden: true}
     };
   }
 
@@ -68,6 +77,7 @@ class App extends React.Component {
   }
 
   setTasksState(taskState) {
+    this.setState({ tasks: taskState });
     let tasks = [];
     taskState.forEach(task => {
       tasks.push(JSON.stringify(task));
@@ -95,28 +105,34 @@ class App extends React.Component {
     }
   }
 
-  addNewTask(newTask) {
+  async addNewTask(newTask, message) {
     const newTasksList = this.state.tasks;
     newTasksList.push(newTask);
-    this.setState({ tasks: newTasksList });
-    this.setTasksState(newTasksList);
+    await this.setTasksState(newTasksList);
+    this.sendPopup(message);
   }
 
-  removeFromTasks(taskId) {
+  async removeFromTasks(taskId, message) {
     let updatedTasks = this.state.tasks.filter((task) => {return task.id !== taskId})
-    this.setState({ tasks: updatedTasks });
-    this.setTasksState(updatedTasks);
+    await this.setTasksState(updatedTasks);
+    this.sendPopup(message);
   }
 
-  async updateTask(updatedTaskState) {
+  async updateTask(updatedTaskState, message) {
     const tasks = this.state.tasks.map((task) => {
       if (task.id === updatedTaskState.id) {
         return updatedTaskState;
       }
       return task;
     });
-    await this.setState({ tasks: tasks });
-    this.setTasksState(this.state.tasks);
+    await this.setTasksState(tasks);
+    this.sendPopup(message);
+  }
+
+  async sendPopup(message) {
+    message.hidden = false;
+    await this.setState({ message: message });
+    setTimeout(() => {this.setState({message: {text: '', type: '', hidden: true}})}, 2000);
   }
 
   get sortedTask() {
@@ -128,8 +144,8 @@ class App extends React.Component {
       <div className="App">
         <AddTaskModal title="Add Task" open={this.state.addTaskModal} addTaskCallback={this.addNewTask.bind(this)} toggleShowModalCallback={this.toggleShowModal.bind(this)} />
         <SettingsModal title="Settings" open={this.state.settingsModal} toggleShowModalCallback={this.toggleShowModal.bind(this)} />
-
         <div className="container">
+          <Popup hidden={this.state.message.hidden} type={this.state.message.type} message={this.state.message.text} />
           <div className="top">
             <div className="button-container">
               <BsPlus className="add-button" onClick={this.addTaskClick.bind(this)}/>
@@ -146,6 +162,7 @@ class App extends React.Component {
             tasks={this.sortedTask} 
             removeFromTasks={this.removeFromTasks.bind(this)}  
             updateTask={this.updateTask.bind(this)}
+            sendPopup={this.sendPopup.bind(this)}
           />
         </div>
       </div>

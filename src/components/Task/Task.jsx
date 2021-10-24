@@ -24,7 +24,8 @@ class Task extends React.Component {
       title: this.props.title,
       desc: this.props.desc,
       done: this.state.checked,
-      priority: this.props.priority
+      priority: this.props.priority,
+      steps: this.props.steps
     }
     this.updateTask(task);
   }
@@ -39,12 +40,16 @@ class Task extends React.Component {
     this.setState({open: !this.state.open});
   }
 
-  removeFromTasks() {
-    this.props.removeFromTasks(this.props.id);
+  removeFromTasks(message) {
+    this.props.removeFromTasks(this.props.id, message);
   }
 
-  updateTask(updatedTaskState) {
-    this.props.updateTask(updatedTaskState);
+  updateTask(updatedTaskState, message) {
+    this.props.updateTask(updatedTaskState, message);
+  }
+
+  sendPopup(message) {
+    this.props.sendPopup(message);
   }
 
   render() { 
@@ -64,9 +69,11 @@ class Task extends React.Component {
           desc={this.props.desc}
           done={this.props.done}
           priority={this.props.priority}
+          steps={this.props.steps}
           toggleShowTaskModalCallback={this.toggleShowTaskModal.bind(this)}
           removeFromTasks={this.removeFromTasks.bind(this)}
           updateTask={this.updateTask.bind(this)}
+          sendPopup={this.sendPopup.bind(this)}
         />
       </div>
     );

@@ -1,0 +1,33 @@
+.popup {
+  position: absolute;
+  max-width: 700px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 0 auto;
+  top: 15%;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  z-index: 1000;
+}
+
+.popup-success {
+  background-color:rgb(38, 179, 69);
+}
+
+.popup-warning {
+  background-color: rgb(179, 123, 38);
+}
+
+.popup-fail {
+  background-color:rgb(179, 38, 38);
+}
+
+.popup-neutral {
+  background-color: rgb(179, 179, 179);
+}
+
+.popup-hidden {
+  visibility: hidden;
+  opacity: 0;
+}

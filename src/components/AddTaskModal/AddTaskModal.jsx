@@ -14,6 +14,7 @@ export default class AddTaskModal extends Component {
       success: false,
       desc: '',
       title: '',
+      steps: [],
       priority: 0
     }
   }
@@ -25,17 +26,18 @@ export default class AddTaskModal extends Component {
     return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
 }
 
-  addTask(event) {
+  async addTask(event) {
     event.preventDefault();
     const task = {
       id: '',
       title: this.state.title,
       desc: this.state.desc,
       done: false,
+      steps: [],
       priority: this.state.priority
     }
     task.id = _uniqueId(this.guidGenerator());
-    this.props.addTaskCallback(task);
+    await this.props.addTaskCallback(task, {text: 'Task Added Successfully', type: 'success'});
     this.updateParent();
   }
 
@@ -51,7 +53,7 @@ export default class AddTaskModal extends Component {
   }
 
   setDesc(desc) {
-    this.setState({ desc: desc })
+    this.setState({ desc: desc });
   }
 
   setPriority(priority) {
@@ -71,7 +73,7 @@ export default class AddTaskModal extends Component {
               <div className="form-align">
                 <input value={this.state.title} className="title" name="title" required placeholder="Enter your task's Name" onChange={(e) => this.setTitle(e.target.value)}/>
                 <div className="priority-container">
-                  <label>Enter your task's Priority:</label><input type="number" value={this.state.priority} className="priority" name="priority" placeholder="0" onChange={(e) => this.setPriority(e.target.value)}/>
+                  <label className="priority-label">Enter your task's Priority:</label><input type="number" value={this.state.priority} className="priority" name="priority" placeholder="0" onChange={(e) => this.setPriority(e.target.value)}/>
                 </div>
                 <textarea value={this.state.desc} className="description" onChange={(e) => this.setDesc(e.target.value)} name="desc" placeholder="Enter your task's Description"></textarea>
               </div>

@@ -5,12 +5,16 @@ import './TaskList.css';
 
 class TaskList extends React.Component {
 
-  removeFromTasks(taskId) {
-    this.props.removeFromTasks(taskId);
+  removeFromTasks(taskId, message) {
+    this.props.removeFromTasks(taskId, message);
   }
 
-  updateTask(updatedTaskState) {
-    this.props.updateTask(updatedTaskState);
+  updateTask(updatedTaskState, message) {
+    this.props.updateTask(updatedTaskState, message);
+  }
+
+  sendPopup(message) {
+    this.props.sendPopup(message);
   }
 
   render() { 
@@ -26,8 +30,10 @@ class TaskList extends React.Component {
                     title={task.title} 
                     done={task.done} 
                     priority={task.priority}
+                    steps={task.steps}
                     removeFromTasks={this.removeFromTasks.bind(this)} 
                     updateTask={this.updateTask.bind(this)}
+                    sendPopup={this.sendPopup.bind(this)}
                   />
                 ))
               : <h4 className="no-tasks">Click the Add button to create a new task</h4>
